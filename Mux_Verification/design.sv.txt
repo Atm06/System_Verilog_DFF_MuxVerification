@@ -1,0 +1,16 @@
+module d_ff(D, clk, reset, Q, Qn);
+  input D, clk, reset;
+  output reg Q;
+  output Qn;
+  
+  assign Qn = ! Q;
+  
+  always @ (posedge clk)
+    begin
+      if (reset)
+        Q <= 0;
+      else
+        Q <= D;
+    end
+  
+endmodule

@@ -1,0 +1,24 @@
+interface intf(input logic clk, reset);
+  
+  logic D;
+  logic Q;
+  logic Qn;
+  
+  clocking c_b @(posedge clk);// driver
+    default input #1 output #1;//skew delay input output1
+    input Q, Qn;
+    output D;
+  endclocking
+  
+  clocking cb @(posedge clk);//monitor
+    default input #1 output #1;
+    input Q, Qn;
+    input D;
+  endclocking
+  
+  modport c_b_m(clocking c_b, input  clk,reset);//modport of driver
+    modport cb_m(clocking cb, input  clk,reset);//modport of monitor
+endinterface
+    
+  
+  

@@ -1,0 +1,24 @@
+class transaction;
+  
+  rand bit D;
+   bit Q, Qn;
+  
+  function void display(string name);
+    $display(-------------------------);
+    $display(- %s ,name);
+    $display(-------------------------);
+    $display(- D = %0d,D);
+    $display(- Q = %0d, Qn = %0d,Q, Qn);
+    $display(-------------------------);
+  endfunction
+  
+  function transaction do_copy();
+    transaction tr;
+    tr = new();
+    tr.D  = this.D;
+    return tr;
+  endfunction
+  
+  
+  
+endclass
