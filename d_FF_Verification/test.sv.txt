@@ -1,0 +1,11 @@
+program testb (intf i_i);
+  
+envrionment e1;
+  
+  initial begin
+    e1 = new(i_i);
+    e1.g1.repeat_count = 10;
+    e1.run();
+  end
+  
+endprogram

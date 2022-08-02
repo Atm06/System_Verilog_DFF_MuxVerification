@@ -1,0 +1,29 @@
+`define MON v_i.cb_m.cb
+class monitor;
+  
+  virtual intf v_i;
+  
+  mailbox m2s;
+  
+  function new(virtual intf v_i, mailbox m2s);
+    this.v_i = v_i;
+    this.m2s = m2s;
+  endfunction
+  
+  task main;
+    forever begin
+      transaction t1 = new();
+      @(posedge v_i.cb_m.clk);
+      t1.D = `MON.D;
+      @(posedge v_i.cb_m.clk);
+      t1.Q = `MON.Q;
+      t1.Qn = `MON.Qn;
+    
+      m2s.put(t1);
+      t1.display("<< Monitor >>");
+    end
+  endtask
+  
+endclass
+
+      
