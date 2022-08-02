@@ -1,0 +1,36 @@
+//1.define a class model
+class generator;
+//2.randomizing transcation class and we will give a name for that class
+  rand transaction t1;
+//3.repeat count  
+  int repeat_count;
+//4. define a mailbox for driver  
+  mailbox g2d;
+//5.events triggering   
+  event ended;
+ //6.function creation for mailbox
+  function new(mailbox g2d);//mailbox function 
+    this.g2d = g2d;
+  endfunction
+ //7. we will code a main task or run task where our main randomizing logic will be present 
+  task main();
+    repeat(repeat_count) begin
+      t1 = new();
+      if(t1.randomize()) begin
+      t1.display("[Generator]");
+        #1;
+      g2d.put(t1);
+      end
+      else
+        $fatal("Gen:: trans randomization failed");
+       
+    end
+  
+    
+    -> ended;
+  endtask
+  
+endclass
+  
+  
+ 

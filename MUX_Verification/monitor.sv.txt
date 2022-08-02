@@ -1,0 +1,33 @@
+//1 declaration of monitor class
+class monitor;
+//2 instantiation of virtual interface  
+  virtual intf vir;
+//3 declaration of mail box
+  mailbox m2s;
+ //optional we can declare transaction here or in main task. as your wish
+//4 creating function for mailbox and virtual interface 
+  function new(virtual intf vir, mailbox m2s);
+    this.vir = vir;
+    this.m2s = m2s;
+  endfunction
+//5 i need to create a task main where i can perform all my monitor operatio such as transaction , recieving data from interface and trans and lastly putting data in scoreboard  
+  task main;
+    forever begin
+      transaction t1;
+      t1 = new();
+      #1;
+      t1.a0 = vir.a0;
+      t1.a1 = vir.a1;
+      t1.sel = vir.sel;
+      t1.out = vir.out;
+      
+      m2s.put(t1);
+      t1.display("Monitor");
+      
+    end
+  endtask
+  
+endclass
+
+  
+  

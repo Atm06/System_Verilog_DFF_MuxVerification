@@ -1,0 +1,20 @@
+class transaction;
+  // in tracsaction class we are defining inputs and output which we are displaying here
+  // rand is used to randomize the inputs in random variables
+  rand bit [2:0] a0;
+  rand bit [2:0] a1;
+  rand bit sel;
+  bit [2:0] out;
+  
+  // We can use display funtion here which will help us to display all the value we get when we randomize it in generator class. So the string name is present which we will call in generator class after we randomize
+  // OR
+  // We can declare a funtion here with trasaction docopy and call it from generator class like we will see that process in RR Arbiter
+  function void display(string name);
+    $display("-------------------------");
+    $display("- %s ",name);
+    $display("-------------------------");
+    $display("- a0 = %0d, a1 = %0d, sel = %0d",a0,a1,sel);
+    $display("- out = %0d",out);
+    $display("-------------------------");
+  endfunction
+endclass

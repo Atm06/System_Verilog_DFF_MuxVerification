@@ -1,0 +1,7 @@
+interface intf(input logic reset); // declaration of clk and reset signal with input logic 
+  
+  logic [2:0] a0, a1;
+  logic sel;
+  logic [2:0] out;
+  
+endinterface

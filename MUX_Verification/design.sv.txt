@@ -1,0 +1,18 @@
+module mux2_1(a0, a1, sel, reset, out);
+ 
+  input [2:0] a0, a1;
+  input sel, reset;
+  output reg [2:0] out;
+  
+  always @(*)
+    begin
+      if(!reset)
+        
+        if(sel)
+          out = a1;
+      else
+          out=a0;
+      else
+          out=3'd0;
+      end
+  endmodule

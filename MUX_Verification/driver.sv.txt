@@ -1,0 +1,61 @@
+class driver;
+ //2 we will define an int for some number of transaction 
+  int no_of_transactions;
+  //3 creating virtual interface instance
+  virtual intf vir;
+ //4 creating mailbox 
+  mailbox g2d;
+//5 function creation for virtual interface and mailbox  
+  function new(virtual intf vir, mailbox g2d);
+    this.vir = vir;
+    this.g2d = g2d;
+  endfunction
+//6 reset task-declaring differnet signal while putting some reset value  
+  task reset;
+    wait(vir.reset);
+    $display("[Driver] ----- Reset Started -----");
+    vir.a0 <= 0;
+    vir.a1 <= 0;
+    vir.sel <= 0;
+    wait(!vir.reset);
+    $display("[Driver] ----- Reset Ended -----");
+  endtask
+//7 u need to create task either main/run or as per ur requiremnet and it basically contains instantiation of transaction class and calling mailbox get value from transaction  
+  task main;
+    forever begin
+      transaction t1;
+      g2d.get(t1);
+      
+      vir.a0 <= t1.a0;
+      vir.a1 <= t1.a1;
+      vir.sel <= t1.sel;
+      #1;
+      t1.out = vir.out;
+      
+      t1.display("[Driver]");
+      no_of_transactions++;
+     
+      
+    end
+  endtask
+  
+endclass
+     
+  
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

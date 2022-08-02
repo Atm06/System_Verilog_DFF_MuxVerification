@@ -1,0 +1,31 @@
+`include "interface.sv"
+`include "transaction.sv"
+`include "generator.sv"
+`include "driver.sv"
+`include "monitor.sv"
+`include "scoreboard.sv"
+`include "environment.sv"
+`include "test.sv"
+
+module testbench_top;
+  
+  bit reset;
+  
+  initial begin
+    reset = 1;
+  #5 reset = 0;
+  end
+  
+  intf i_i(reset);
+  test t1(i_i);
+  
+  mux2_1 d1(.a0(i_i.a0),.a1(i_i.a1),.reset(i_i.reset),.sel(i_i.sel),.out(i_i.out));
+  
+  initial begin
+    $dumpfile("dump.vcd");
+    $dumpvars;
+
+  end
+  
+endmodule
+

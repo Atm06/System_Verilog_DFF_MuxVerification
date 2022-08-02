@@ -1,0 +1,26 @@
+//define class scb
+class scoreboard;
+//mailbox to get data from monitor
+  mailbox m2s;
+///number of transaction 
+  int no_of_transactions;
+//function 
+  function new(mailbox m2s);
+    this.m2s=m2s;
+  endfunction
+//main task ---creation of trans getting data from monitor and giving comparation logic
+  task main;
+  transaction t1;
+    forever begin
+    m2s.get(t1);
+    no_of_transactions++;
+    t1.display("[Scoreboard]");
+    if(((t1.sel)&&(t1.out==t1.a1))|((!t1.sel)&&(t1.out==t1.a0)))
+      $display("result correct");
+    else
+      $display("result wrong");
+    end
+    
+  endtask
+  
+endclass

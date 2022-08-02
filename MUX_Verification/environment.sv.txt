@@ -1,0 +1,73 @@
+class environment;
+
+// encapsulation of all the files and mailbox
+  
+  generator g1;
+  driver d1;
+  monitor m1;
+  scoreboard s1;
+  
+  mailbox g2d;
+  mailbox m2s;
+  
+  virtual intf vir;
+
+//function calling from all the files
+  
+  function new(virtual intf vir);
+    this.vir = vir;
+    
+    g2d = new();
+    m2s = new();
+    
+    g1 = new(g2d);
+    d1 = new(vir, g2d);
+    m1 = new(vir, m2s);
+    s1 = new(m2s);
+  endfunction 
+  
+//task reset_test  
+  
+  task reset_test();
+    d1.reset();
+  endtask
+
+  
+    
+//task test
+  task test();
+    fork
+      g1.main();
+      d1.main(); 
+      m1.main();
+      s1.main();
+    join_any
+  endtask
+ 
+    
+//we wil call all reset_test and test task in one task run
+  
+  task run;
+
+    reset_test();
+    test();
+    //post_test();// not required
+    $finish;
+  endtask
+  
+endclass
+
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
